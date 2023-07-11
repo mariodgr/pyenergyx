@@ -28,13 +28,13 @@ class EnergyConverter:
             'Wh': 60 * 60,  # 1 watt-hour = 3600 seconds * 1 watt
             'Ws': 1,  # 1 watt-second = 1 joule
             'horsepower-hour': 745.7 * 60 * 60,  # 1 horsepower-hour = 745.7 watts * 3600 seconds
-            'koe': 1e3 * 4.1868e7,  # 1 kg of oil equivalent = 1e3 * 4.1868e7 joules
-            'toe': 1e3 * 1e3 * 4.1868e7,  # 1 tonne of oil equivalent = 1e3 kg of oil equivalent = 1e3 * 1e3 * 4.1868e7 joules
-            'ktoe': 1e3 * 1e3 * 1e3 * 4.1868e7,  # 1 thousand tonnes of oil equivalent = 1e3 tonnes of oil equivalent = 1e3 * 1e3 * 1e3 * 4.1868e7 joules
-            'Mtoe': 1e3 * 1e3 * 1e3 * 1e3 * 4.1868e7,  # 1 million tonnes of oil equivalent = 1e3 thousand tonnes of oil equivalent = 1e3 * 1e3 * 1e3 * 1e3 * 4.1868e7 joules
-            'boe': 5.8e6,  # 1 barrel of oil equivalent = 5.8e6 joules
-            'kboe': 1e3 * 5.8e6,  # 1 thousand barrels of oil equivalent = 1e3 barrels of oil equivalent = 1e3 * 5.8e6 joules
-            'Mboe': 1e3 * 1e3 * 5.8e6,  # 1 million barrels of oil equivalent = 1e3 thousand barrels of oil equivalent = 1e3 * 1e3 * 5.8e6 joules
+            'koe': 10 * 4.1868e7,  # 1 kg of oil equivalent = 10 * 4.1868e7 joules
+            'toe': 41.868 * 1e9,  # 1 tonne of oil equivalent = 41.868 GJ = 41.868 * 1e9 joules
+            'ktoe': 41.868 * 1e9 * 1e3,  # 1 thousand tonnes of oil equivalent = 1e3 tonnes of oil equivalent = 41.868 * 1e9 * 1e3 joules
+            'Mtoe': 41.868 * 1e9 * 1e6,  # 1 million tonnes of oil equivalent = 1e6 tonnes of oil equivalent = 41.868 * 1e9 * 1e6 joules
+            'boe': 5.8 * 1e6,  # 1 barrel of oil equivalent = 5.8 * 1e6 joules
+            'kboe': 5.8 * 1e6 * 1e3,  # 1 thousand barrels of oil equivalent = 1e3 barrels of oil equivalent = 5.8 * 1e6 * 1e3 joules
+            'Mboe': 5.8 * 1e6 * 1e6,  # 1 million barrels of oil equivalent = 1e6 barrels of oil equivalent = 5.8 * 1e6 * 1e6 joules
             'Gm3 NG': 1e9 * 1e3,  # 1 billion m3 natural gas = 1e9 m3 natural gas = 1e9 * 1e3 joules
             'Gft3 NG': 1e9 * 1.055056e3,  # 1 billion ft3 natural gas = 1e9 ft3 natural gas = 1e9 * 1.055056e3 joules
             'Mt LNG': 1e6 * 1e3 * 1e3,  # 1 million tonnes liquefied natural gas = 1e6 tonnes liquefied natural gas = 1e6 * 1e3 * 1e3 joules
