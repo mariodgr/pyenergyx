@@ -1,4 +1,4 @@
-﻿class ConversionError(Exception):
+class ConversionError(Exception):
     """
     Exception raised for errors in the conversion process.
     """
@@ -99,15 +99,3 @@ class EnergyConverter:
 
         except Exception as e:
             raise ConversionError(f"Error performing conversion: {str(e)}")
-
-converter = EnergyConverter()
-
-# Get available units for dropdown menus
-units = converter.get_units()
-
-# Perform conversion
-try:
-    result = converter.convert(value, from_unit, to_unit)
-    print(f"{value} {from_unit} = {result} {to_unit}")
-except ConversionError as e:
-    print(f"Error performing conversion: {str(e)}")
