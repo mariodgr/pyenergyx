@@ -9,63 +9,88 @@ class EnergyConverter:
     """
     A class for converting between different units of energy.
     """
+
+    unit_prefixes = {
+        'y': 1e-24,
+        'z': 1e-21,
+        'a': 1e-18,
+        'f': 1e-15,
+        'p': 1e-12,
+        'n': 1e-9,
+        'μ': 1e-6,
+        'm': 1e-3,
+        'c': 1e-2,
+        'd': 1e-1,
+        'da': 1e1,
+        'h': 1e2,
+        'k': 1e3,
+        'M': 1e6,
+        'G': 1e9,
+        'T': 1e12,
+        'P': 1e15,
+        'E': 1e18,
+        'Z': 1e21,
+        'Y': 1e24,
+    }
+    btu_IT=1055.05585262
+    base_units = {
+        'J': 1,
+        'cal': 4.184,
+        'Btu': btu_IT,
+        'therm': 1055.06 * 1e5,  
+        'MMBtu': 1055.06 * 1e6,  
+        'quad': 1055.06 * 1e15,
+        'eV': 1.60218e-19,
+        'tonneTNT': 4.184e9,  
+        'TWyr': 31.54e18,  
+        'kWh': 60 * 60 * 1e3,
+        'short_ton_coal': 18.82e6 * btu_IT ,
+        'long_ton_coal': 18.82e6 * (2240/2000) * btu_IT,
+        'cord_wood': 20e6 * btu_IT, 
+        'cubic_foot_ng': 1036 * btu_IT,  
+        'oil_bbl': 5684000 * btu_IT,
+        'bbl_av_gasoline': 5.326e9,
+        'gal_gasoline': 120214.286 * btu_IT,
+        'gal_diesel': 137380.952 * btu_IT,
+        'gal_heating_oil': 138500 * btu_IT,
+        'bbl_residual_oil': 6.287e6 * btu_IT,
+        'gal_propane': 91452 * btu_IT,
+        'food_calorie': 1000 * 4.184,
+        'toe': 4.187e10,
+        'tce': 2.93e10,
+        'boe': 6.118e9,
+        'horsepower_h': 2684519.5368856,
+    }
+
+
     def __init__(self):
         """
         Initialize a new instance of the EnergyConverter class.
         """
-               # Conversion factors to convert from each unit to Joules.
-        # These are calculated as follows:
+        self.conversion_factors = self.create_conversion_factors()
 
-        self.conversion_factors_to_joule = {
-            'GJ': 1e9,  # 1 gigajoule = 1e9 joules
-            'MJ': 1e6,  # 1 megajoule = 1e6 joules
-            'kJ': 1e3,  # 1 kilojoule = 1e3 joules
-            'J': 1,     # 1 joule = 1 joule
-            'kcal': 1000 * 4.184,  # 1 kilocalorie = 1000 calories, 1 calorie = 4.184 joules
-            'cal': 4.184,  # 1 calorie = 4.184 joules
-            'kWh': 1000 * 60 * 60,  # 1 kilowatt-hour = 1000 watts-hour = 3600 seconds * 1 watt
-            'MWh': 1e6 * 60 * 60,  # 1 megawatt-hour = 1e6 watts-hour = 3600 seconds * 1 megawatt
-            'Wh': 60 * 60,  # 1 watt-hour = 3600 seconds * 1 watt
-            'Ws': 1,  # 1 watt-second = 1 joule
-            'horsepower-hour': 745.7 * 60 * 60,  # 1 horsepower-hour = 745.7 watts * 3600 seconds
-            'koe': 10 * 4.1868e7,  # 1 kg of oil equivalent = 10 * 4.1868e7 joules
-            'toe': 41.868 * 1e9,  # 1 tonne of oil equivalent = 41.868 GJ = 41.868 * 1e9 joules
-            'ktoe': 41.868 * 1e9 * 1e3,  # 1 thousand tonnes of oil equivalent = 1e3 tonnes of oil equivalent = 41.868 * 1e9 * 1e3 joules
-            'Mtoe': 41.868 * 1e9 * 1e6,  # 1 million tonnes of oil equivalent = 1e6 tonnes of oil equivalent = 41.868 * 1e9 * 1e6 joules
-            'boe': 5.8 * 1e6,  # 1 barrel of oil equivalent = 5.8 * 1e6 joules
-            'kboe': 5.8 * 1e6 * 1e3,  # 1 thousand barrels of oil equivalent = 1e3 barrels of oil equivalent = 5.8 * 1e6 * 1e3 joules
-            'Mboe': 5.8 * 1e6 * 1e6,  # 1 million barrels of oil equivalent = 1e6 barrels of oil equivalent = 5.8 * 1e6 * 1e6 joules
-            'Gm3 NG': 1e9 * 1e3,  # 1 billion m3 natural gas = 1e9 m3 natural gas = 1e9 * 1e3 joules
-            'Gft3 NG': 1e9 * 1.055056e3,  # 1 billion ft3 natural gas = 1e9 ft3 natural gas = 1e9 * 1.055056e3 joules
-            'Mt LNG': 1e6 * 1e3 * 1e3,  # 1 million tonnes liquefied natural gas = 1e6 tonnes liquefied natural gas = 1e6 * 1e3 * 1e3 joules
-            'Gt LNG': 1e9 * 1e3 * 1e3,  # 1 billion tonnes liquefied natural gas = 1e9 tonnes liquefied natural gas = 1e9 * 1e3 * 1e3 joules
-            'kg SKE': 1e3 * 2.93e7,  # 1 kg hard coal = 1e3 g hard coal = 1e3 * 2.93e7 joules
-            't SKE': 1e3 * 1e3 * 2.93e7,  # 1 tonne hard coal = 1e3 kg hard coal = 1e3 * 1e3 * 2.93e7 joules
-            'GeV': 1e9 * 1.60218e-19,  # 1 gigaelectronvolt = 1e9 electronvolts = 1e9 * 1.60218e-19 joules
-            'TeV': 1e12 * 1.60218e-19,  # 1 tera-electronvolt = 1e12 electronvolts = 1e12 * 1.60218e-19 joules
-            'MeV': 1e6 * 1.60218e-19,  # 1 mega-electronvolt = 1e6 electronvolts = 1e6 * 1.60218e-19 joules
-            'keV': 1e3 * 1.60218e-19,  # 1 kilo-electronvolt = 1e3 electronvolts = 1e3 * 1.60218e-19 joules
-            'eV': 1.60218e-19,  # 1 electronvolt = 1.60218e-19 joules
-            'Btu': 1055.06,  # 1 british thermal unit = 1055.06 joules
-            'MMBtu': 1e6 * 1055.06,  # 1 million british thermal units = 1e6 british thermal units = 1e6 * 1055.06 joules
-            'thm': 1e5 * 1055.06,  # 1 therm = 1e5 british thermal units = 1e5 * 1055.06 joules
-            'quad': 1e15 * 1055.06,  # 1 quad = 1e15 british thermal units = 1e15 * 1055.06 joules
-            'erg': 1e-7,  # 1 erg = 1e-7 joules
-            'Mt': 1e6 * 1e3 * 1e3 * 1e3,  # 1 megatonne TNT = 1e6 tonnes TNT = 1e6 * 1e3 * 1e3 * 1e3 joules
-            'kT': 1e3 * 1e3 * 1e3 * 1e3,  # 1 kilotonne TNT = 1e3 tonnes TNT = 1e3 * 1e3 * 1e3 * 1e3 joules
-            'ft-lb': 1.35581794833,  # 1 foot-pound = 1.35581794833 joules
-        }
+    def create_conversion_factors(self):
+        """
+        Create a dictionary of conversion factors for all units.
+        """
+        conversion_factors = {}
 
+        for base_unit, base_value in self.base_units.items():
+            conversion_factors[base_unit] = base_value
+            for prefix, multiple in self.unit_prefixes.items():
+                conversion_factors[prefix + base_unit] = base_value * multiple
+
+        return conversion_factors
 
     def get_units(self):
         """
         Get a list of the available units of energy.
-        
+
         Returns:
         list: A list of strings, each string being a unit of energy.
         """
-        return list(self.conversion_factors_to_joule.keys())
-        
+        return list(self.conversion_factors.keys())
+
     def convert(self, value, from_unit, to_unit):
         """
         Convert a given value from one unit of energy to another.
@@ -83,19 +108,23 @@ class EnergyConverter:
         """
 
         # Error checking: make sure the units are known
-        if from_unit not in self.conversion_factors_to_joule:
+        if from_unit not in self.conversion_factors:
             raise ConversionError(f"Unknown energy unit: {from_unit}")
-        if to_unit not in self.conversion_factors_to_joule:
+        if to_unit not in self.conversion_factors:
             raise ConversionError(f"Unknown energy unit: {to_unit}")
 
         try:
             # Convert from the source unit to Joules
-            joules = value * self.conversion_factors_to_joule[from_unit]
+            joules = value * self.conversion_factors[from_unit]
 
             # Then convert from Joules to the destination unit
-            result = joules / self.conversion_factors_to_joule[to_unit]
+            result = joules / self.conversion_factors[to_unit]
 
             return result
 
         except Exception as e:
             raise ConversionError(f"Error performing conversion: {str(e)}")
+            
+converter = EnergyConverter()  # create an object of the class
+value_in_Joules = converter.convert(1, 'short_ton_coal', 'Btu')  # convert 100 calories to Joules
+print(value_in_Joules)
