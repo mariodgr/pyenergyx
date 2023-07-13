@@ -12,8 +12,7 @@ The main source for the conversion factors used in this library is the Energy In
 
 To install PyEnergyX, you can use pip to install directly from the GitHub repository:
 
-```bash
-pip install git+https://github.com/mariodgr/pyenergyx.git```
+```bash pip install git+https://github.com/mariodgr/pyenergyx.git```
 
 ## Usage
 Here's how to use PyEnergyX:
