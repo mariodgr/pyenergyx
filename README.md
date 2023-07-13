@@ -23,7 +23,6 @@ First, import the EnergyConverter class and create an instance:
 from pyenergyx import EnergyConverter
 
 converter = EnergyConverter()
-
 ```
 You can get a list of all available energy units:
 
