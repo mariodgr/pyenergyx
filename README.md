@@ -19,21 +19,25 @@ Here's how to use PyEnergyX:
 
 First, import the EnergyConverter class and create an instance:
 
-python
-Copy code
+```
 from pyenergyx import EnergyConverter
 
 converter = EnergyConverter()
 
+```
 You can get a list of all available energy units:
 
+```
 units = converter.get_units()
 # Returns a list of dictionaries with 'abbreviation' and 'name' of a unit
+```
 
 To convert from one energy unit to another, use the convert() method:
 
+```
 result = converter.convert(1000, 'J', 'kWh')
 # Converts 1000 Joules to Kilowatt Hours
+```
 
 ## Error Handling
 The ConversionError exception will be raised if there are any issues during the conversion process, such as unknown units or invalid values.
