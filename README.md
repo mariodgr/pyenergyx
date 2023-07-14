@@ -6,7 +6,7 @@ PyEnergyX is a robust Python library aimed at professionals in the energy indust
 
 With PyEnergyX, you can conveniently convert between common units as well as less conventional ones like Tonne of Coal Equivalent, Barrel of Aviation Gasoline, BTU, tons of coal, barrels of oil, joules, and many more. 
 
-The main source for the conversion factors used in this library is the Energy Information Administration, which ensures high accuracy and reliability of the conversions.
+The main source for the conversion factors used in this library is the Energy Information Administration (eia.gov) and the American Physical Society (aps.org), which ensures high accuracy and reliability of the conversions.
 
 ## Installation
 
